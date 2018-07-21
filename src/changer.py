@@ -31,12 +31,14 @@ class AmbientBackgrounds:
                 }
             }
         }
+        self.setup_wiz_flag = False
 
     def begin(self):
         while True:
             print('Make your selection: ')
             print('0 - Set up')
             print('1 - Change background')
+            print('Q - Quit')
             selection = raw_input('Selection: ')
             self.handle_selection(selection)
 
@@ -81,9 +83,42 @@ class AmbientBackgrounds:
 
         selection = raw_input('Selection: ')
 
+        # TODO left off here
+        if selection == '0':
+            self.setup_wizard()
+
     def setup(self):
         self.setup_menu()
         pass
+
+    def setup_wizard(self):
+        self.setup_wiz_flag = True
+        self.setup_zip()
+        self.setup_unit()
+
+    def setup_zip(self):
+        self.zip_code = raw_input('Enter your zip code- this is used for acquiring time/weather data in your location: ')
+        print('\n')
+
+        if not self.setup_wiz_flag:
+            self.setup_menu()
+
+    def setup_unit(self):
+        print('Select a temperature unit. This will be used when determining whether it is time for a "cold" background or a "warm" background')
+        print('0 - Fahrenheit')
+        print('1 - Celsius')
+        select = raw_input('Selection: ')
+        if select == '0':
+            self.unit = 'fahrenheit'
+        elif select == '1':
+            self.unit = 'celsius'
+        else:
+            print('\nInvalid selection. Please try again.\n')
+            self.setup_unit()
+
+        print('\n')
+        if not self.setup_wiz_flag:
+            self.setup_menu()
 
     def change_background(self):
         print('background')
